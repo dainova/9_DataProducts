@@ -6,9 +6,13 @@ shinyUI(pageWithSidebar(
   # Application title
   headerPanel("Statistics of Titanic passengers"),
   
+
   # Sidebar with controls to select a dataset and specify the number
   # of observations to view
   sidebarPanel(
+    
+    
+    
     selectInput("param1", "Choose a parameter:", 
                 choices = c("Class", "Sex", "Age")),
     
@@ -27,6 +31,10 @@ shinyUI(pageWithSidebar(
   # Show a summary of the dataset and an HTML table with the requested
   # number of observations
   mainPanel(
+    div("* This application works with build in dataset Titanic and displayes output based on selected 
+             parametes and their values, hit Update View button for refresh cascade parameters and view results",
+    style = "color:blue"),
+  br(),
     textOutput("text"),
     tableOutput("tbl"),
     verbatimTextOutput("summary")
