@@ -4,22 +4,31 @@ library(shiny)
 shinyUI(pageWithSidebar(
   
   # Application title
-  headerPanel("Parameters of various geometrical shapes"),
+  headerPanel("Statistics of Titanic passengers"),
   
   # Sidebar with controls to select a dataset and specify the number
   # of observations to view
   sidebarPanel(
-    selectInput("dataset", "Choose a dataset:", 
-                choices = c("rock", "pressure", "cars")),
+    selectInput("param1", "Choose a parameter:", 
+                choices = c("Class", "Sex", "Age")),
     
-    numericInput("obs", "Number of observations to view:", 10)
+    htmlOutput("selectUI"),
+    #selectInput("value", "Choose a value:",
+    #           choices = c("1st", "2nd", "3rd")),
+    
+    numericInput("obs", "Number of passengers to display:", 10),
+    checkboxInput("summary", "Show Summary", FALSE),
+    
+    submitButton("Update View")
+    
+    
   ),
   
   # Show a summary of the dataset and an HTML table with the requested
   # number of observations
   mainPanel(
-    verbatimTextOutput("summary"),
-    
-    tableOutput("view")
+    textOutput("text"),
+    tableOutput("tbl"),
+    verbatimTextOutput("summary")
   )
 ))
