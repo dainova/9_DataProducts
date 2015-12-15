@@ -42,8 +42,8 @@ shinyUI(pageWithSidebar(
   br(),
     #textOutput("text"),
     htmlOutput("ryba"),
-    tableOutput("tbl")
+    tableOutput("tbl"),
 
-  #verbatimTextOutput("summary")
+   verbatimTextOutput("summary")
   )
 ))
