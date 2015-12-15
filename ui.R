@@ -40,8 +40,10 @@ shinyUI(pageWithSidebar(
              parametes and their values, hit Update View button for refresh cascade parameters and view results",
     style = "color:blue"),
   br(),
-    textOutput("text"),
-    tableOutput("tbl"),
-    verbatimTextOutput("summary")
+    #textOutput("text"),
+    htmlOutput("ryba"),
+    tableOutput("tbl")
+
+  #verbatimTextOutput("summary")
   )
 ))

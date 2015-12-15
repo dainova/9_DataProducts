@@ -44,5 +44,17 @@ shinyServer(function(input, output) {
   
   output$text <- renderText({ 
     c("Selected Param: ", input$param1 , "....Status: ",  input$param2, ".....Value=", input$value )  })
+ 
+  output$ryba <- renderUI({
+    str1 <- paste("Selected Param=", input$param1)
+    str2 <- paste("Value=",  input$value)
+    str3 <- paste("Status=",  input$param2)
+                
+    HTML(paste(str1, str2, str3, sep = '<br/>'))
+    
+  })
   
+  
+  
+   
 })
