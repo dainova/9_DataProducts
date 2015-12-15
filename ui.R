@@ -20,8 +20,13 @@ shinyUI(pageWithSidebar(
     #selectInput("value", "Choose a value:",
     #           choices = c("1st", "2nd", "3rd")),
     
+    
+    selectInput("param2", "Choose a Status:", 
+                choices = c("Any", "Survived", "Dead")),
+    
     numericInput("obs", "Number of passengers to display:", 10),
     checkboxInput("summary", "Show Summary", FALSE),
+    
     
     submitButton("Update View")
     

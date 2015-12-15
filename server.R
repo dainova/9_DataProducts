@@ -4,15 +4,7 @@ library(datasets)
 # Define server logic required to summarize and view the selected dataset
 shinyServer(function(input, output) {
   
-  # Return the requested dataset
-  datasetInput <- reactive({
-    switch(input$dataset,
-           "Class" = rock,
-           "Sex" = pressure,
-           "Age" = cars)
-  })
-  
-  
+
   cascade<- reactive({         ##
     t <- data.frame(Titanic)
     temp <- quote(input$param1)
@@ -26,13 +18,15 @@ shinyServer(function(input, output) {
   })
   
   
-  output$text <- renderText({ 
-    c("Selected Param: ", input$param1, "...value=", input$value )  })
+ 
   
   output$tbl <- renderTable({
     t <- data.frame(Titanic)
-    #head(subset(t, Class =='1st'), n = input$obs)
-    head(subset(t,  get(input$param1) == input$value),n = input$obs)
+          
+         if (input$param2 == 'Survived') { head(subset(t,   Survived == 'Yes',n = input$obs))}
+    else if (input$param2 == 'Dead')     { head(subset(t,   Survived == 'No',n = input$obs))}
+    else                                 { head(subset(t,  get(input$param1) == input$value),n = input$obs)}
+     
   })
   #subset(t, Class ==inputvalue)    ## OK
   #subset(t, get(inputparam) ==inputvalue)    ## <@>><   doesn't work !!!!!
@@ -47,4 +41,8 @@ shinyServer(function(input, output) {
     dataset <- data.frame(Titanic)
     summary(dataset)  }
   })
+  
+  output$text <- renderText({ 
+    c("Selected Param: ", input$param1 , "....Status: ",  input$param2, ".....Value=", input$value )  })
+  
 })
