@@ -23,9 +23,9 @@ shinyServer(function(input, output) {
   output$tbl <- renderTable({
     t <- data.frame(Titanic)
           
-         if (input$param2 == 'Survived') { head(subset(t,   Survived == 'Yes',n = input$obs))}
-    else if (input$param2 == 'Dead')     { head(subset(t,   Survived == 'No',n = input$obs))}
-    else                                 { head(subset(t,  get(input$param1) == input$value),n = input$obs)}
+         if (input$param2 == "Survived") { head(subset(t, get(input$param1) == input$value & Survived == 'Yes',n = input$obs))}
+    else if (input$param2 == "Dead")     { head(subset(t, get(input$param1) == input$value & Survived == 'No',n = input$obs))}
+    else                                 { head(subset(t,  get(input$param1) == input$value ,n = input$obs))}
      
   })
   #subset(t, Class ==inputvalue)    ## OK

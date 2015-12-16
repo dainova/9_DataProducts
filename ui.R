@@ -1,60 +1,49 @@
 library(shiny)
-library(datasets)
 
-# Define server logic required to summarize and view the selected dataset
-shinyServer(function(input, output) {
+# Define UI for dataset viewer application
+shinyUI(pageWithSidebar(
+  
+  # Application title
+  headerPanel("Statistics of Titanic passengers"),
   
 
-  cascade<- reactive({         ##
-    t <- data.frame(Titanic)
-    temp <- quote(input$param1)
-    m <- unique(t[,eval(temp), drop=F])
-    sapply(m [, eval(temp)], as.character)
-  })
-  
-  #searchResult()[,1]
-  output$selectUI <- renderUI({ 
-    selectInput("value", "Choose a value:",  cascade())       
-  })
-  
-  
- 
-  
-  output$tbl <- renderTable({
-    t <- data.frame(Titanic)
-          
-         if (input$param2 == 'Survived') { head(subset(t, get(input$param1) == input$value, Survived == 'Yes',n = input$obs))}
-    else if (input$param2 == 'Dead')     { head(subset(t, get(input$param1) == input$value, Survived == 'No',n = input$obs))}
-    else                                 { head(subset(t,  get(input$param1) == input$value),n = input$obs)}
-     
-  })
-  #subset(t, Class ==inputvalue)    ## OK
-  #subset(t, get(inputparam) ==inputvalue)    ## <@>><   doesn't work !!!!!
-  #t[ t[colnames(t)==inputparam]==inputvalue, ]
-  #eval(parse( text=paste0("subset(t, ", inputparam, "=='", inputvalue, "')") ))
-  #t[ t[[inputparam]] ==inputvalue, ] 
-  
-  # Generate a summary if check box = TRUE
-  output$summary <- renderPrint({
-    if (input$summary)  ## == TRUE )
-    {
-    dataset <- data.frame(Titanic)
-    summary(dataset)  }
-  })
-  
-  output$text <- renderText({ 
-    c("Selected Param: ", input$param1 , "....Status: ",  input$param2, ".....Value=", input$value )  })
- 
-  output$ryba <- renderUI({
-    str1 <- paste("Selected Param=", input$param1)
-    str2 <- paste("Value=",  input$value)
-    str3 <- paste("Status=",  input$param2)
-                
-    HTML(paste(str1, str2, str3, sep = '<br/>'))
+  # Sidebar with controls to select a dataset and specify the number
+  # of observations to view
+  sidebarPanel(
     
-  })
+    
+    
+    selectInput("param1", "Choose a parameter:", 
+                choices = c("Class", "Sex", "Age")),
+    
+    htmlOutput("selectUI"),
+    #selectInput("value", "Choose a value:",
+    #           choices = c("1st", "2nd", "3rd")),
+    
+    
+    selectInput("param2", "Choose a Status:", 
+                choices = c("Any", "Survived", "Dead")),
+    
+    numericInput("obs", "Number of passengers to display:", 10),
+    checkboxInput("summary", "Show Summary", FALSE),
+    
+    
+    submitButton("Update View")
+    
+    
+  ),
   
-  
-  
-   
-})
+  # Show a summary of the dataset and an HTML table with the requested
+  # number of observations
+  mainPanel(
+    div("* This application works with build in dataset Titanic and displayes output based on selected 
+             parametes and their values, hit Update View button for refresh cascade parameters and view results",
+    style = "color:blue"),
+  br(),
+    #textOutput("text"),
+    htmlOutput("ryba"),
+    tableOutput("tbl"),
+
+    verbatimTextOutput("summary")
+  )
+))
