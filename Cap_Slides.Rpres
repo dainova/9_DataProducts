@@ -1,0 +1,52 @@
+Cap_Slide
+========================================================
+author: Victor Mo
+date:   Nov 21, 2015
+
+Yelp Cap project 
+========================================================
+
+Data and Methods used:
+The version of the Yelp Academic Dataset used in the analysis was released by Yelp on August 2015. The dataset consists of five main objects encoded as JSON files:
+- businesses
+- checkins
+- reviews
+- tips
+- users
+
+We use standard methods of exploratory data analysis to make a general representation of rating distribution over all the businesses registered in the Yelp Database. We find dependencies between rating and characteristics of the submitted reviews.
+Additionally we will check if the distribution of star rating is identical for the highly reviewed businesses and businesses with a small number of reviews.
+Slide With Code
+========================================================
+Methods used:
+
+* Cleaning and weighting data
+* Rises and Falls
+* Aggregation of Relevant Data
+* Building predictive models using 
+
+  + **pls** - Partial Least Square Discriminant Analysis
+   
+  + **glm** - Generalized Linear Model
+   
+  + **knn** - k-Nearest Neighbors
+
+========================================================
+Results
+
+- Our study revealed the incredible growth in the number of new reviews since 2005. We can see that the proportion of 1-2-3-4-5-stars submitted by users remain approximately equal.
+- Confirmed Influence of the Review Text Length
+- Distribution of Star Ratings over all the Reviews
+
+We divided all the businesses into two subgroups depending on the corresponding review count: businesses with at least 10 reviews submitted, and businesses with less than 10 reviews. Then for each subgroup the distribution of star ratings was calculated. The results are reflected on the plot like illustrated on the plot on next slide.
+
+Rating Star Plot
+========================================================
+<small>This plot represents the distribution of 1 to 5 stars over all the submitted reviews (blue color). The diagram makes it possible to reveal the difference in stars distribution for highly reviewed businesses (orange color) and for businesses with a pretty small number of reviews (green color).</small>
+![alt text](http://i.stack.imgur.com/Zsa4o.jpg)
+
+========================================================
+<small>Code chunk sample(green color).</small>
+```{r}
+summary(Titanic)
+```
